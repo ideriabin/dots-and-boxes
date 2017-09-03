@@ -4,6 +4,8 @@
   "description": "",
   "scripts": {
     "start": "$(npm bin)/webpack-dev-server",
+    "build": "$(npm bin)/webpack",
+    "gh-pages": "npm run build && $(npm bin)/gh-pages -d dist/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,6 +24,7 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
     "css-loader": "^0.28.7",
+    "gh-pages": "^1.0.0",
     "style-loader": "^0.18.2",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.7.1"
