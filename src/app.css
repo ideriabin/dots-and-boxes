@@ -1,0 +1,73 @@
+:root {
+  --font-default: sans-serif;
+  --font-fancy: "Love Ya Like A Sister", sans-serif;
+
+  --color-text: #333;
+  --color-light: #888;
+  --color-accent: #933;
+  --color-bg: #EEE;
+  --cell-size: 75px;
+  --edge-width: 1px;
+  --edge-width-hover: 4px;
+
+  height: 100%;
+
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  font: normal 14px var(--font-default);
+  color: var(--color-text);
+}
+
+.app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  background: var(--color-bg) radial-gradient(#FFF 0, #FFF 25vmin, transparent 75vmin);
+}
+
+.app-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+  .app-title {
+    margin: 0;
+    font-family: var(--font-fancy);
+  }
+
+  .app-version {
+    font-size: 0.5em;
+    color: var(--color-accent);
+  }
+
+  .app-subtitle {
+    margin: 0;
+    text-transform: lowercase;
+    color: var(--color-light);
+  }
+
+.app-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 2;
+}
+  .app-field {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+.app-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
