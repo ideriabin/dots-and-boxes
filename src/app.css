@@ -6,12 +6,8 @@
   --color-light: #888;
   --color-accent: #933;
   --color-bg: #EEE;
-  --cell-size: 75px;
-  --edge-width: 1px;
-  --edge-width-hover: 4px;
 
   height: 100%;
-
 }
 
 body {
