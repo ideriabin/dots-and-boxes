@@ -20,35 +20,27 @@ export default class Field {
     }
   }
 
-  get(...args) {
-    return this.cells.get(...args);
-  }
-
-  has(...args) {
-    return this.cells.has(...args);
-  }
-
   onEdgeOwned(edge) {
     this.mirrorEdgeOwner(edge);
   }
 
   mirrorEdgeOwner(edge) {
-    const cell = this.get(cell => cell.has(edge));
+    const cell = this.cells.get(cell => cell.has(edge));
 
-    if (edge.type === TOP && this.has(cell, TOP)) {
-      this.get(cell, TOP).edges[BOTTOM].owner = edge.owner;
+    if (edge.type === TOP && this.cells.has(cell, TOP)) {
+      this.cells.get(cell, TOP).edges[BOTTOM].owner = edge.owner;
     }
 
-    if (edge.type === BOTTOM && this.has(cell, BOTTOM)) {
-      this.get(cell, BOTTOM).edges[TOP].owner = edge.owner;
+    if (edge.type === BOTTOM && this.cells.has(cell, BOTTOM)) {
+      this.cells.get(cell, BOTTOM).edges[TOP].owner = edge.owner;
     }
 
-    if (edge.type === LEFT && this.has(cell, LEFT)) {
-      this.get(cell, LEFT).edges[RIGHT].owner = edge.owner;
+    if (edge.type === LEFT && this.cells.has(cell, LEFT)) {
+      this.cells.get(cell, LEFT).edges[RIGHT].owner = edge.owner;
     }
 
-    if (edge.type === RIGHT && this.has(cell, RIGHT)) {
-      this.get(cell, RIGHT).edges[LEFT].owner = edge.owner;
+    if (edge.type === RIGHT && this.cells.has(cell, RIGHT)) {
+      this.cells.get(cell, RIGHT).edges[LEFT].owner = edge.owner;
     }
   }
 }

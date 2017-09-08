@@ -12,13 +12,14 @@ it('should set up field', () => {
 
 it('should check if cells exist', () => {
   const { field } = createGame();
-  expect(field.has(0, 0)).toBe(true);
-  expect(field.has(-1, -1)).toBe(false);
+  const { cells } = field;
+  expect(cells.has(0, 0)).toBe(true);
+  expect(cells.has(-1, -1)).toBe(false);
 });
 
 it('should set owners for edges only once', () => {
   const { field, players } = createGame();
-  const edge = field.get(0, 0).edges[TOP];
+  const edge = field.cells.get(0, 0).edges[TOP];
 
   edge.setOwner(players[0]);
   expect(() => edge.setOwner(players[1])).toThrow();
@@ -26,24 +27,25 @@ it('should set owners for edges only once', () => {
 
 it('should mirror edge owners', () => {
   const { field, players } = createGame();
-  const cell = field.get(1, 1);
+  const { cells } = field;
+  const cell = cells.get(1, 1);
 
   cell.edges[TOP].setOwner(players[0]);
-  expect(field.get(cell, TOP).edges[BOTTOM].owner).toEqual(players[0]);
+  expect(cells.get(cell, TOP).edges[BOTTOM].owner).toEqual(players[0]);
 
   cell.edges[BOTTOM].setOwner(players[1]);
-  expect(field.get(cell, BOTTOM).edges[TOP].owner).toEqual(players[1]);
+  expect(cells.get(cell, BOTTOM).edges[TOP].owner).toEqual(players[1]);
 
   cell.edges[LEFT].setOwner(players[0]);
-  expect(field.get(cell, LEFT).edges[RIGHT].owner).toEqual(players[0]);
+  expect(cells.get(cell, LEFT).edges[RIGHT].owner).toEqual(players[0]);
 
   cell.edges[RIGHT].setOwner(players[1]);
-  expect(field.get(cell, RIGHT).edges[LEFT].owner).toEqual(players[1]);
+  expect(cells.get(cell, RIGHT).edges[LEFT].owner).toEqual(players[1]);
 });
 
 it('should set cell owner when it\'s enclosed', () => {
   const { field, players } = createGame();
-  const cell = field.get(1, 1);
+  const cell = field.cells.get(1, 1);
 
   cell.edges[TOP].setOwner(players[0]);
   cell.edges[BOTTOM].setOwner(players[1]);
@@ -55,7 +57,7 @@ it('should set cell owner when it\'s enclosed', () => {
 
 it('should set cell owner to player that encloses it', () => {
   const { field, players } = createGame();
-  const cell = field.get(1, 1);
+  const cell = field.cells.get(1, 1);
 
   cell.edges[TOP].setOwner(players[0]);
   cell.edges[BOTTOM].setOwner(players[1]);
