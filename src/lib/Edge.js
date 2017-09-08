@@ -1,4 +1,3 @@
-import { TOP, BOTTOM, LEFT, RIGHT } from './symbols';
 import Player from './Player';
 import emitter from './Emitter';
 

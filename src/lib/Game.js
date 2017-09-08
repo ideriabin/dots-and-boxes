@@ -1,5 +1,4 @@
 import Field from './Field';
-import emitter from './Emitter';
 
 export default class Game {
   constructor(params) {

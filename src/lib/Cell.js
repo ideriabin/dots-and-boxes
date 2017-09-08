@@ -32,7 +32,7 @@ export default class Cell {
     if (this.allEdgesHaveOwners()) {
       this.owner = edge.owner;
       emitter.emit('cellOwned', this);
-    };
+    }
   }
 
   allEdgesHaveOwners() {

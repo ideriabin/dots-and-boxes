@@ -1,3 +1,5 @@
+/* eslint-env jest */
+
 import { TOP, BOTTOM, LEFT, RIGHT } from '../src/lib/symbols';
 import createStore from './create-store';
 

@@ -1,3 +1,5 @@
+/* global VERSION */
+
 import './app.css';
 import './field.css';
 import Game from './lib/Game';
@@ -13,6 +15,7 @@ function onInit() {
     players: [new Player(), new Player()],
   });
 
+  // eslint-disable-next-line no-console
   console.log(game);
 }
 

@@ -12,7 +12,7 @@ export default class Field {
     emitter.on('edgeOwned', edge => this.onEdgeOwned(edge));
   }
 
-  init(size) {
+  init() {
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
         this.cells.set(i, j, new Cell());
