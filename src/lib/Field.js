@@ -10,6 +10,7 @@ export default class Field {
     this.init();
 
     emitter.on('edgeOwned', edge => this.onEdgeOwned(edge));
+    emitter.on('cellOwned', cell => this.onCellOwned(cell));
   }
 
   init() {
@@ -22,6 +23,10 @@ export default class Field {
 
   onEdgeOwned(edge) {
     this.mirrorEdgeOwner(edge);
+  }
+
+  onCellOwned() {
+    if (this.allCellsOwned()) emitter.emit('allCellsOwned');
   }
 
   mirrorEdgeOwner(edge) {
@@ -42,5 +47,17 @@ export default class Field {
     if (edge.type === RIGHT && this.cells.has(cell, RIGHT)) {
       this.cells.get(cell, RIGHT).edges[LEFT].owner = edge.owner;
     }
+  }
+
+  allCellsOwned() {
+    let owned = 0;
+
+    for (let i = 0; i < this.size; i++) {
+      for (let j = 0; j < this.size; j++) {
+        owned += Boolean(this.cells.get(i, j).owner);
+      }
+    }
+
+    return owned === this.size * this.size;
   }
 }
