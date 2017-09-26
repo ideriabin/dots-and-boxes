@@ -1,6 +1,7 @@
 import { TOP, BOTTOM, LEFT, RIGHT  } from './symbols';
 import CellStore from './CellStore';
 import Cell from './Cell';
+import Player from './Player';
 import emitter from './Emitter';
 
 export default class Field {
@@ -9,8 +10,7 @@ export default class Field {
     this.cells = new CellStore(this);
     this.init();
 
-    emitter.on('edgeOwned', edge => this.onEdgeOwned(edge));
-    emitter.on('cellOwned', cell => this.onCellOwned(cell));
+    emitter.on('field:edge:owned', edge => this.onEdgeOwned(edge));
   }
 
   init() {
@@ -23,33 +23,29 @@ export default class Field {
 
   onEdgeOwned(edge) {
     this.mirrorEdgeOwner(edge);
-  }
 
-  onCellOwned() {
-    if (this.allCellsOwned()) emitter.emit('allCellsOwned');
+    if (edge.cell.allEdgesHaveOwners()) {
+      edge.cell.owner = edge.owner;
+      emitter.emit('game:cell:owned', edge.cell);
+    }
   }
 
   mirrorEdgeOwner(edge) {
-    const cell = this.cells.get(cell => cell.has(edge));
+    if (!this.cells.has(edge.cell, edge.type)) return;
 
-    if (edge.type === TOP && this.cells.has(cell, TOP)) {
-      this.cells.get(cell, TOP).edges[BOTTOM].owner = edge.owner;
-    }
+    const neighborCell = this.cells.get(edge.cell, edge.type);
+    let mirrorEdge;
 
-    if (edge.type === BOTTOM && this.cells.has(cell, BOTTOM)) {
-      this.cells.get(cell, BOTTOM).edges[TOP].owner = edge.owner;
-    }
+    if (edge.type === TOP)    mirrorEdge = neighborCell.edges[BOTTOM];
+    if (edge.type === BOTTOM) mirrorEdge = neighborCell.edges[TOP];
+    if (edge.type === LEFT)   mirrorEdge = neighborCell.edges[RIGHT];
+    if (edge.type === RIGHT)  mirrorEdge = neighborCell.edges[LEFT];
 
-    if (edge.type === LEFT && this.cells.has(cell, LEFT)) {
-      this.cells.get(cell, LEFT).edges[RIGHT].owner = edge.owner;
-    }
-
-    if (edge.type === RIGHT && this.cells.has(cell, RIGHT)) {
-      this.cells.get(cell, RIGHT).edges[LEFT].owner = edge.owner;
-    }
+    if (mirrorEdge.owner instanceof Player) return;
+    mirrorEdge.owner = edge.owner;
   }
 
-  allCellsOwned() {
+  allCellsHaveOwners() {
     let owned = 0;
 
     for (let i = 0; i < this.size; i++) {

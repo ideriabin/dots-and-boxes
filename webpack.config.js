@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 const webpack = require('webpack');
 const path = require('path');
 
@@ -28,6 +30,8 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     watchContentBase: true,
   },
+
+  devtool: 'eval-source-map',
 
   plugins: [
     new webpack.DefinePlugin({

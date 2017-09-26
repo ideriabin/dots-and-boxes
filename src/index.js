@@ -12,8 +12,10 @@ function onInit() {
 
   const game = new Game({
     field: { size: 4 },
-    players: [new Player(), new Player()],
+    players: [new Player('Player 1'), new Player('Player 2')],
   });
+
+  game.start();
 
   // eslint-disable-next-line no-console
   console.log(game);

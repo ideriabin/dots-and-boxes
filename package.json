@@ -6,7 +6,8 @@
     "start": "webpack-dev-server",
     "build": "webpack",
     "gh-pages": "npm run build && gh-pages -d dist/",
-    "test": "jest --coverage && npm run lint",
+    "test": "npm run lint && jest --coverage",
+    "test-watch": "jest --watch",
     "lint-staged": "lint-staged",
     "lint": "eslint src/ test/; exit 0"
   },
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/rodweb/dots-and-boxes#readme",
   "dependencies": {
+    "lodash": "^4.17.4",
     "nanoevents": "^0.4.1"
   },
   "devDependencies": {

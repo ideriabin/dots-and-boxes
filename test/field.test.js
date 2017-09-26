@@ -25,8 +25,8 @@ it('should set owners for edges only once', () => {
 
   const edge = cells.get(0, 0).edges[TOP];
 
-  edge.setOwner(players[0]);
-  expect(() => edge.setOwner(players[1])).toThrow();
+  edge.owner = players[0];
+  expect(() => edge.owner = players[1]).toThrow();
 });
 
 it('should mirror edge owners', () => {
@@ -35,16 +35,16 @@ it('should mirror edge owners', () => {
 
   const cell = cells.get(1, 1);
 
-  cell.edges[TOP].setOwner(players[0]);
+  cell.edges[TOP].owner = players[0];
   expect(cells.get(cell, TOP).edges[BOTTOM].owner).toEqual(players[0]);
 
-  cell.edges[BOTTOM].setOwner(players[1]);
+  cell.edges[BOTTOM].owner = players[1];
   expect(cells.get(cell, BOTTOM).edges[TOP].owner).toEqual(players[1]);
 
-  cell.edges[LEFT].setOwner(players[0]);
+  cell.edges[LEFT].owner = players[0];
   expect(cells.get(cell, LEFT).edges[RIGHT].owner).toEqual(players[0]);
 
-  cell.edges[RIGHT].setOwner(players[1]);
+  cell.edges[RIGHT].owner = players[1];
   expect(cells.get(cell, RIGHT).edges[LEFT].owner).toEqual(players[1]);
 });
 
@@ -54,11 +54,11 @@ it('should set cell owner when it\'s enclosed', () => {
 
   const cell = cells.get(1, 1);
 
-  cell.edges[TOP].setOwner(players[0]);
-  cell.edges[BOTTOM].setOwner(players[1]);
-  cell.edges[LEFT].setOwner(players[0]);
+  cell.edges[TOP].owner = players[0];
+  cell.edges[BOTTOM].owner = players[1];
+  cell.edges[LEFT].owner = players[0];
   expect(cell.owner).toBeNull();
-  cell.edges[RIGHT].setOwner(players[1]);
+  cell.edges[RIGHT].owner = players[1];
   expect(cell.owner).not.toBeNull();
 });
 
@@ -68,9 +68,9 @@ it('should set cell owner to player that encloses it', () => {
 
   const cell = cells.get(1, 1);
 
-  cell.edges[TOP].setOwner(players[0]);
-  cell.edges[BOTTOM].setOwner(players[1]);
-  cell.edges[LEFT].setOwner(players[0]);
-  cell.edges[RIGHT].setOwner(players[1]);
+  cell.edges[TOP].owner = players[0];
+  cell.edges[BOTTOM].owner = players[1];
+  cell.edges[LEFT].owner = players[0];
+  cell.edges[RIGHT].owner = players[1];
   expect(cell.owner).toEqual(players[1]);
 });

@@ -1,38 +1,16 @@
 import { TOP, BOTTOM, LEFT, RIGHT } from './symbols';
 import Edge from './Edge';
-import emitter from './Emitter';
 
 export default class Cell {
   constructor() {
     this.owner = null;
 
     this.edges = {
-      [TOP]: new Edge(TOP),
-      [BOTTOM]: new Edge(BOTTOM),
-      [LEFT]: new Edge(LEFT),
-      [RIGHT]: new Edge(RIGHT),
+      [TOP]: new Edge(TOP, this),
+      [BOTTOM]: new Edge(BOTTOM, this),
+      [LEFT]: new Edge(LEFT, this),
+      [RIGHT]: new Edge(RIGHT, this),
     };
-
-    emitter.on('edgeOwned', (edge) => {
-      if (!this.has(edge)) return;
-      this.onEdgeOwned(edge);
-    });
-  }
-
-  has(edge) {
-    return (
-      this.edges[TOP] === edge ||
-      this.edges[BOTTOM] === edge ||
-      this.edges[LEFT] === edge ||
-      this.edges[RIGHT] === edge
-    );
-  }
-
-  onEdgeOwned(edge) {
-    if (this.allEdgesHaveOwners()) {
-      this.owner = edge.owner;
-      emitter.emit('cellOwned', this);
-    }
   }
 
   allEdgesHaveOwners() {

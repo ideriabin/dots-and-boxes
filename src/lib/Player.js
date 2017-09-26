@@ -1,6 +1,7 @@
 export default class Player {
-  constructor() {
-    this.id = Symbol();
+  constructor(name) {
+    this.id = Symbol(name);
+    this.name = name;
     this.boxes = 0;
   }
 }

@@ -1,18 +1,25 @@
 import Player from './Player';
 import emitter from './Emitter';
 
+const owner = Symbol('owner');
+
 export default class Edge {
-  constructor(type) {
+  constructor(type, cell) {
+    this.cell = cell;
     this.type = type;
-    this.owner = null;
+    this[owner] = null;
   }
 
-  setOwner(player) {
-    if (this.owner instanceof Player) {
+  get owner() {
+    return this[owner];
+  }
+
+  set owner(player) {
+    if (this[owner] instanceof Player) {
       throw new Error(`Edge is already taken`);
     }
 
-    this.owner = player;
-    emitter.emit('edgeOwned', this);
+    this[owner] = player;
+    emitter.emit('field:edge:owned', this);
   }
 }
