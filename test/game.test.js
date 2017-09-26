@@ -25,7 +25,7 @@ function ownAllCells(field, player) {
 
 beforeEach(() => unbindAll(emitter));
 
-it('should count number of player\'s boxes', () => {
+it('should calculate player\'s score', () => {
   const game = createGame();
   const cell1 = game.field.cells.get(0, 0);
   const cell2 = game.field.cells.get(1, 1);
@@ -33,16 +33,16 @@ it('should count number of player\'s boxes', () => {
   cell1.edges[TOP].owner = game.players[0];
   cell1.edges[BOTTOM].owner = game.players[1];
   cell1.edges[LEFT].owner = game.players[0];
-  expect(game.players[0].boxes).toBe(0);
-  expect(game.players[1].boxes).toBe(0);
+  expect(game.players[0].score).toBe(0);
+  expect(game.players[1].score).toBe(0);
   cell1.edges[RIGHT].owner = game.players[1];
-  expect(game.players[1].boxes).toBe(1);
+  expect(game.players[1].score).toBe(1);
 
   cell2.edges[TOP].owner = game.players[1];
   cell2.edges[BOTTOM].owner = game.players[0];
   cell2.edges[LEFT].owner = game.players[1];
   cell2.edges[RIGHT].owner = game.players[0];
-  expect(game.players[0].boxes).toBe(1);
+  expect(game.players[0].score).toBe(1);
 });
 
 it('should let players take turns', () => {
@@ -98,4 +98,28 @@ it('should determine winner', () => {
   ownAllCells(game2.field, game2.players[1]);
   emitter.emit('game:turn:end');
   expect(winner).toEqual(game2.players[1]);
+
+  unbindAll(emitter);
+
+  const game3 = createGame({ field: { size: 2 } });
+  emitter.on('game:finish', (result) => winner = result.winner);
+
+  game3.field.cells.get(0, 0).edges[TOP].owner = game3.players[0];
+  game3.field.cells.get(0, 0).edges[BOTTOM].owner = game3.players[0];
+  game3.field.cells.get(0, 0).edges[LEFT].owner = game3.players[0];
+  game3.field.cells.get(0, 0).edges[RIGHT].owner = game3.players[0];
+
+  game3.field.cells.get(0, 1).edges[TOP].owner = game3.players[1];
+  game3.field.cells.get(0, 1).edges[BOTTOM].owner = game3.players[1];
+  game3.field.cells.get(0, 1).edges[RIGHT].owner = game3.players[1];
+
+  game3.field.cells.get(1, 0).edges[BOTTOM].owner = game3.players[0];
+  game3.field.cells.get(1, 0).edges[LEFT].owner = game3.players[0];
+  game3.field.cells.get(1, 0).edges[RIGHT].owner = game3.players[0];
+
+  game3.field.cells.get(1, 1).edges[BOTTOM].owner = game3.players[1];
+  game3.field.cells.get(1, 1).edges[RIGHT].owner = game3.players[1];
+
+  emitter.emit('game:turn:end');
+  expect(winner).toEqual(false);
 });

@@ -1,11 +1,12 @@
 /* eslint-env jest */
 
+import unbindAll from 'nanoevents/unbind-all';
 import { TOP, BOTTOM, LEFT, RIGHT } from '../src/lib/symbols';
 import Emitter from '../src/lib/Emitter';
 import createField from './create-field';
 import createPlayers from './create-players';
 
-beforeEach(() => Emitter.events = {});
+beforeEach(() => unbindAll(Emitter));
 
 it('should set up field', () => {
   const field = createField({ size: 5 });

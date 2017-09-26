@@ -1,6 +1,10 @@
 import Field from './Field';
 import emitter from './Emitter';
-import maxBy from 'lodash/maxBy';
+import groupBy from 'lodash/groupBy';
+import orderBy from 'lodash/orderBy';
+import identity from 'lodash/identity';
+
+const oneMoreTurn = Symbol('oneMoreTurn');
 
 export default class Game {
   constructor(params) {
@@ -8,7 +12,7 @@ export default class Game {
     this.field = new Field(params.field);
 
     this.currentPlayer = null;
-    this.oneMoreTurn = false;
+    this[oneMoreTurn] = false;
 
     emitter.on('game:cell:owned', cell => this.onCellOwned(cell));
     emitter.on('game:turn:end', () => this.onTurnEnd());
@@ -20,7 +24,7 @@ export default class Game {
   }
 
   nextTurn() {
-    if (this.oneMoreTurn) this.oneMoreTurn = false;
+    if (this[oneMoreTurn]) this[oneMoreTurn] = false;
     else {
       const i = (this.players.indexOf(this.currentPlayer) + 1) % this.players.length;
       this.currentPlayer = this.players[i];
@@ -31,13 +35,19 @@ export default class Game {
 
   finish() {
     emitter.emit('game:finish', {
-      winner: maxBy(this.players, player => player.boxes),
+      winner: this.getWinner(),
     });
   }
 
+  getWinner() {
+    const scoreGroups = groupBy(this.players, 'score');
+    const maxScore = orderBy(Object.keys(scoreGroups), identity, 'desc')[0];
+    return scoreGroups[maxScore].length > 1 ? false : scoreGroups[maxScore][0];
+  }
+
   onCellOwned(cell) {
-    cell.owner.boxes++;
-    this.oneMoreTurn = true;
+    cell.owner.score++;
+    this[oneMoreTurn] = true;
   }
 
   onTurnEnd() {
