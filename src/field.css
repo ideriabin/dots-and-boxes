@@ -1,14 +1,16 @@
 .field {
-  --cell-size: 80px;
-  --dot-size: calc(var(--cell-size) / 10);
-  --line-width: calc(var(--cell-size) / 20);
+  /* --size is set dynamically via JS */
+  --max-size: 50vmin;
+  --cell-size: calc(var(--max-size) / var(--size));
+  --dot-size: calc(4px + 8px * 8 / var(--size));
+  --line-width: calc(var(--dot-size) / 2);
   --sqrt2: 1.4142135624;
 
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  width: calc(var(--cell-size) * 4);
-  height: calc(var(--cell-size) * 4);
+  width: calc(var(--cell-size) * var(--size));
+  height: calc(var(--cell-size) * var(--size));
 }
   .field::before,
   .field::after,
@@ -36,8 +38,8 @@
 
 .field-cell {
   position: relative;
-  width: 25%;
-  height: 25%;
+  width: var(--cell-size);
+  height: var(--cell-size);
 }
   .field-cell::before {
     top: 100%;

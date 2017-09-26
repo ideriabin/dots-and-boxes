@@ -29,6 +29,7 @@ export default class UI {
   }
 
   render(field) {
+    this[container].style.setProperty('--size', `${field.size}`);
     const fragment = document.createDocumentFragment();
 
     for (let i = 0; i < field.size; i++) {
