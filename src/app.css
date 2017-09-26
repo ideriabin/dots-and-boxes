@@ -4,8 +4,12 @@
 
   --color-text: #333;
   --color-light: #888;
-  --color-accent: #933;
+  --color-accent: #C33;
   --color-bg: #EEE;
+  --color-player1: #F88;
+  --color-player1-light: #FDD;
+  --color-player2: #88F;
+  --color-player2-light: #DDF;
 
   height: 100%;
 }

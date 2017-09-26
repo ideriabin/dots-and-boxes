@@ -4,6 +4,7 @@ import './app.css';
 import './field.css';
 import Game from './lib/Game';
 import Player from './lib/Player';
+import UI from './lib/UI';
 
 document.addEventListener('DOMContentLoaded', onInit);
 
@@ -14,6 +15,8 @@ function onInit() {
     field: { size: 4 },
     players: [new Player('Player 1'), new Player('Player 2')],
   });
+
+  new UI('.field', game);
 
   game.start();
 

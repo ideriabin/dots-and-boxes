@@ -1,17 +1,214 @@
 .field {
   --cell-size: 80px;
+  --dot-size: calc(var(--cell-size) / 10);
+  --line-width: calc(var(--cell-size) / 20);
+  --sqrt2: 1.4142135624;
+
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   width: calc(var(--cell-size) * 4);
   height: calc(var(--cell-size) * 4);
-  background-color: #f5f5f5;
-  border: 1px solid var(--color-light);
 }
+  .field::before,
+  .field::after,
+  .field-cell::before,
+  .field-cell::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    width: var(--dot-size);
+    height: var(--dot-size);
+    border-radius: 50%;
+    background-color: var(--color-text);
+  }
+
+  .field::before {
+    top: 0;
+    left: 0;
+  }
+
+  .field::after {
+    top: 100%;
+    left: 100%;
+  }
 
 .field-cell {
   position: relative;
-  box-sizing: border-box;
   width: 25%;
   height: 25%;
-  border: 1px solid var(--color-light);
 }
+  .field-cell::before {
+    top: 100%;
+    left: 0;
+  }
+
+  .field-cell::after {
+    top: 0;
+    left: 100%;
+  }
+
+  .field-cell[data-owner] {
+    transition: background-color .4s;
+  }
+
+  .field-cell[data-owner="0"] {
+    background-color: var(--color-player1-light);
+  }
+
+  .field-cell[data-owner="1"] {
+    background-color: var(--color-player2-light);
+  }
+
+.field-edge {
+  position: absolute;
+  z-index: 0;
+  width: 100%;
+}
+  /* .field-edge::before {
+    opacity: 0;
+  }
+    .field-edge:hover::before {
+      filter: blur(calc(var(--cell-size) / 4));
+      opacity: 0.25;
+      transition: opacity 0.4s;
+    } */
+
+  .field-edge::after {
+    opacity: 0;
+  }
+    .field[data-turn="0"] .field-edge:not([data-owner])::after {
+      background-color: var(--color-player1);
+    }
+
+    .field[data-turn="1"] .field-edge:not([data-owner])::after {
+      background-color: var(--color-player2);
+    }
+
+    .field-edge:hover::after {
+      opacity: 1;
+      transition: opacity 0.4s;
+    }
+
+    .field-edge[data-owner]::after {
+      opacity: 1;
+    }
+
+    .field-edge[data-owner="0"]::after {
+      background-color: var(--color-player1);
+    }
+
+    .field-edge[data-owner="1"]::after {
+      background-color: var(--color-player2);
+    }
+
+  .field-edge.--top {
+    top: 0;
+    left: 0;
+  }
+    .field-edge.--top::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(var(--cell-size) / 2 * var(--sqrt2));
+      height: calc(var(--cell-size) / 2 * var(--sqrt2));
+      transform: rotate(-45deg);
+      transform-origin: 0 0;
+      /* background-color: #F00; */
+    }
+
+    .field-edge.--top::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      transform: translateY(-50%);
+      width: 100%;
+      height: var(--line-width);
+    }
+
+  .field-edge.--bottom {
+    bottom: 0;
+    left: 0;
+  }
+    .field-edge.--bottom::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(var(--cell-size) / 2 * var(--sqrt2));
+      height: calc(var(--cell-size) / 2 * var(--sqrt2));
+      transform: rotate(-45deg);
+      transform-origin: 0 0;
+      /* background-color: #0F0; */
+    }
+
+    .field-edge.--bottom::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      transform: translateY(-50%);
+      width: 100%;
+      height: var(--line-width);
+    }
+
+  .field-edge.--left {
+    top: 0;
+    left: 0;
+  }
+    .field-edge.--left::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(var(--cell-size) / 2 * var(--sqrt2));
+      height: calc(var(--cell-size) / 2 * var(--sqrt2));
+      transform: rotate(45deg);
+      transform-origin: 0 0;
+      /* background-color: #00F; */
+    }
+
+    .field-edge.--left::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--line-width);
+      transform: rotate(90deg) translateY(-50%);
+      transform-origin: 0 0;
+    }
+
+  .field-edge.--right {
+    top: 0;
+    right: 0;
+  }
+    .field-edge.--right::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: calc(var(--cell-size) / 2 * var(--sqrt2));
+      height: calc(var(--cell-size) / 2 * var(--sqrt2));
+      transform: rotate(-45deg);
+      transform-origin: 100% 0;
+      /* background-color: #F0F; */
+    }
+
+    .field-edge.--right::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--line-width);
+      transform: rotate(-90deg) translateY(-50%);
+      transform-origin: 100% 0;
+    }
