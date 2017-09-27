@@ -11,6 +11,9 @@
   --color-player2: #88F;
   --color-player2-light: #DDF;
 
+  --time-unit: 0.4s;
+  --sqrt2: 1.4142135624;
+
   height: 100%;
 }
 
@@ -55,14 +58,21 @@ body {
   }
 
 .app-content {
+  /* --size is set dynamically via JS */
+  --max-size: 50vmin;
+  --cell-size: calc(var(--max-size) / var(--size));
+  --dot-size: calc(4px + 8px * 8 / var(--size));
+  --line-width: calc(var(--dot-size) / 2);
+
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex: 2;
 }
-  .app-field {
-    margin-left: auto;
-    margin-right: auto;
+  .app-players {
+    position: absolute;
+    width: calc(var(--cell-size) * var(--size));
   }
 
 .app-footer {

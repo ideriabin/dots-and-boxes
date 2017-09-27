@@ -1,8 +1,9 @@
-import Field from './Field';
-import emitter from './Emitter';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
 import identity from 'lodash/identity';
+
+import Field from './Field';
+import emitter from './Emitter';
 
 const oneMoreTurn = Symbol('oneMoreTurn');
 

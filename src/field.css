@@ -1,11 +1,4 @@
 .field {
-  /* --size is set dynamically via JS */
-  --max-size: 50vmin;
-  --cell-size: calc(var(--max-size) / var(--size));
-  --dot-size: calc(4px + 8px * 8 / var(--size));
-  --line-width: calc(var(--dot-size) / 2);
-  --sqrt2: 1.4142135624;
-
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -53,6 +46,7 @@
 
   .field-cell[data-owner] {
     transition: background-color .4s;
+    will-change: background-color;
   }
 
   .field-cell[data-owner="0"] {
@@ -74,23 +68,24 @@
     .field-edge:hover::before {
       filter: blur(calc(var(--cell-size) / 4));
       opacity: 0.25;
-      transition: opacity 0.4s;
+      transition: opacity var(--time-unit);
     } */
 
   .field-edge::after {
     opacity: 0;
+    will-change: opacity;
   }
-    .field[data-turn="0"] .field-edge:not([data-owner])::after {
+    [data-turn="0"] .field-edge:not([data-owner])::after {
       background-color: var(--color-player1);
     }
 
-    .field[data-turn="1"] .field-edge:not([data-owner])::after {
+    [data-turn="1"] .field-edge:not([data-owner])::after {
       background-color: var(--color-player2);
     }
 
     .field-edge:hover::after {
       opacity: 1;
-      transition: opacity 0.4s;
+      transition: opacity var(--time-unit);
     }
 
     .field-edge[data-owner]::after {

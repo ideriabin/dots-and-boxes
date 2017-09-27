@@ -2,6 +2,8 @@
 
 import './app.css';
 import './field.css';
+import './players.css';
+
 import Game from './lib/Game';
 import Player from './lib/Player';
 import UI from './lib/UI';
@@ -16,12 +18,9 @@ function onInit() {
     players: [new Player('Player 1'), new Player('Player 2')],
   });
 
-  new UI('.field', game);
+  new UI('.app-content', game);
 
   game.start();
-
-  // eslint-disable-next-line no-console
-  console.log(game);
 }
 
 function setVersion() {
