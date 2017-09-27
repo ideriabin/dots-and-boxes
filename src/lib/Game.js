@@ -49,6 +49,6 @@ export default class Game {
 
   onTurnEnd() {
     if (this.field.allCellsHaveOwners()) this.finish();
-    this.nextTurn();
+    else this.nextTurn();
   }
 }
