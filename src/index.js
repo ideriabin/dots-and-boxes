@@ -1,8 +1,8 @@
 /* global VERSION */
 
-import './app.css';
-import './field.css';
-import './players.css';
+import './styles/app.css';
+import './styles/field.css';
+import './styles/players.css';
 
 import Game from './lib/Game';
 import Player from './lib/Player';
