@@ -1,7 +1,3 @@
-import groupBy from 'lodash/groupBy';
-import orderBy from 'lodash/orderBy';
-import identity from 'lodash/identity';
-
 import Field from './Field';
 import emitter from './Emitter';
 
@@ -41,9 +37,9 @@ export default class Game {
   }
 
   getWinner() {
-    const scoreGroups = groupBy(this.players, 'score');
-    const maxScore = orderBy(Object.keys(scoreGroups), identity, 'desc')[0];
-    return scoreGroups[maxScore].length > 1 ? false : scoreGroups[maxScore][0];
+    if (this.players[0].score > this.players[1].score) return this.players[0];
+    if (this.players[0].score < this.players[1].score) return this.players[1];
+    return false;
   }
 
   onCellOwned(cell) {

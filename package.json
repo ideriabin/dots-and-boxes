@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/rodweb/dots-and-boxes#readme",
   "dependencies": {
-    "lodash": "^4.17.4",
     "nanoevents": "^0.4.1"
   },
   "devDependencies": {
