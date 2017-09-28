@@ -5,8 +5,8 @@ import Player from './Player';
 import emitter from './Emitter';
 
 const ELEMENT = Symbol('ELEMENT');
-const CONTAINER = Symbol('CONTAINER');
-const FIELD = Symbol('FIELD');
+const GAME    = Symbol('GAME');
+const FIELD   = Symbol('FIELD');
 const PLAYERS = Symbol('PLAYERS');
 
 const edgeTypeClasses = {
@@ -17,12 +17,12 @@ const edgeTypeClasses = {
 };
 
 export default class UI {
-  constructor(containerSelector, game) {
+  constructor(el, game) {
     this.game = game;
 
-    this[CONTAINER] = document.querySelector(containerSelector);
-    this[FIELD] = this[CONTAINER].querySelector('.field');
-    this[PLAYERS] = this[CONTAINER].querySelector('.players');
+    this[GAME] = el;
+    this[FIELD] = this[GAME].querySelector('.field');
+    this[PLAYERS] = this[GAME].querySelector('.players');
 
     this.render();
 
@@ -31,18 +31,17 @@ export default class UI {
     });
 
     emitter.on('game:turn:start', (player) => {
-      this[CONTAINER].dataset.turn = this.game.players.indexOf(player);
+      this[GAME].dataset.turn = this.game.players.indexOf(player);
     });
 
     emitter.on('game:finish', ({ winner }) => {
       const i = this.game.players.indexOf(winner);
-      this[CONTAINER].dataset.turn = i;
-      this[CONTAINER].dataset.winner = i;
+      this[GAME].dataset.winner = i;
     });
   }
 
   render() {
-    this[CONTAINER].style.setProperty('--size', `${this.game.field.size}`);
+    this[GAME].style.setProperty('--size', `${this.game.field.size}`);
     this.renderField(this.game.field);
     this.renderPlayers(this.game.players);
   }

@@ -4,6 +4,7 @@
 
   --color-text: #333;
   --color-light: #888;
+  --color-light-transparent: rgba(138, 138, 138, 0.25);
   --color-accent: #C33;
   --color-bg: #EEE;
   --color-player1: #F88;
@@ -58,6 +59,48 @@ body {
   }
 
 .app-content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 2;
+}
+
+.app-screen {
+  transform: scale(0.95);
+  opacity: 0;
+  z-index: -1;
+  will-change: transform, opacity;
+}
+  .app-screen.--active {
+    z-index: 1;
+    transform: scale(1);
+    opacity: 1;
+    transition:
+     opacity calc(var(--time-unit) * 4),
+     transform calc(var(--time-unit) * 2)
+    ;
+  }
+
+.app-welcome {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 5vmin;
+  padding-bottom: 5vmin;
+}
+  .app-welcome .app-button {
+    width: 30vmin;
+  }
+
+.app-game {
   /* --size is set dynamically via JS */
   --max-size: 50vmin;
   --cell-size: calc(var(--max-size) / var(--size));
@@ -68,11 +111,34 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 2;
+  opacity: 0;
 }
-  .app-players {
-    position: absolute;
-    width: calc(var(--cell-size) * var(--size));
+
+.app-players {
+  position: absolute;
+  width: calc(var(--cell-size) * var(--size));
+}
+
+.app-button {
+  display: inline-block;
+  padding: 0.8em;
+  font-size: 1.6em;
+  font-family: var(--font-fancy);
+  background-color: transparent;
+  border: 2px solid var(--color-player2-light);
+  border-radius: 10px;
+  transition:
+   border-color calc(var(--time-unit) / 2),
+   transform calc(var(--time-unit) / 2)
+  ;
+}
+  .app-button:hover {
+    border-color: var(--color-player2);
+    transform: scale(1.05);
+  }
+
+  .app-button:active {
+    background-color: var(--color-player2-light);
   }
 
 .app-footer {

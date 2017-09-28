@@ -28,8 +28,25 @@
     </header>
 
     <article class="app-content">
-      <div class="players app-players"></div>
-      <div class="field app-field"></div>
+      <form class="app-welcome app-screen --active">
+        <div class="sizeSelector">
+          <input type="radio" name="size" value="2" id="size-2" checked>
+          <label for="size-2" class="sizeSelector-item">2 × 2</label>
+          <input type="radio" name="size" value="4" id="size-4">
+          <label for="size-4" class="sizeSelector-item">4 × 4</label>
+          <input type="radio" name="size" value="6" id="size-6">
+          <label for="size-6" class="sizeSelector-item">6 × 6</label>
+          <input type="radio" name="size" value="8" id="size-8">
+          <label for="size-8" class="sizeSelector-item">8 × 8</label>
+        </div>
+
+        <button class="app-button">Play!</button>
+      </form>
+
+      <div class="app-game app-screen">
+        <div class="players app-players"></div>
+        <div class="field app-field"></div>
+      </div>
     </article>
 
     <footer class="app-footer">

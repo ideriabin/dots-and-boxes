@@ -1,0 +1,37 @@
+.sizeSelector {
+  display: flex;
+  justify-content: space-around;
+}
+  .sizeSelector input[type="radio"] {
+    display: none;
+  }
+
+.sizeSelector-item {
+  display: block;
+  padding: 1em;
+  font-family: var(--font-fancy);
+  font-size: 1.6em;
+  border: 2px solid var(--color-light-transparent);
+  border-radius: 10px;
+  transition:
+   border-color calc(var(--time-unit) / 2),
+   background-color var(--time-unit),
+   transform calc(var(--time-unit) / 2)
+  ;
+}
+  :checked + .sizeSelector-item,
+  .sizeSelector-item:hover {
+    border-color: var(--color-player1);
+  }
+
+  :checked + .sizeSelector-item {
+    background-color: var(--color-player1-light);
+  }
+
+  :not(:checked) + .sizeSelector-item:hover {
+    transform: scale(1.05);
+  }
+
+  .sizeSelector-item ~ .sizeSelector-item {
+    margin-left: 1.6em;
+  }
