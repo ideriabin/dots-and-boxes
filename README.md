@@ -13,10 +13,10 @@
 > — <cite>[Pencil and Paper Games](http://www.papg.com/show?1TMU)</cite>
 
 ## Roadmap
+- [x] Interface
+- [x] Algorithm implementation (square field, square cells)
+- [x] Basic multiplayer (hotseat)
 - [ ] Single player (AI)
-    - [ ] Interface
-    - [ ] Algorithm implementation (square field, square cells)
-- [ ] Basic multiplayer (Hotseat)
 - [ ] Advanced multiplayer (WebSockets)
 - [ ] Cool features
     - [ ] Field generation (pre-defined shapes, random)

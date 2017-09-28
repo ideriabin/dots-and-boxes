@@ -1,6 +1,6 @@
 {
   "name": "dots-and-boxes",
-  "version": "0.2.3",
+  "version": "1.0.0",
   "description": "",
   "scripts": {
     "start": "webpack-dev-server",
