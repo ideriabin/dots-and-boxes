@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister">
 </head>
 <body>
-  <a href="https://github.com/rodweb/dots-and-boxes">
+  <a href="https://github.com/rodweb/dots-and-boxes" target="_blank">
     <img
      style="position: absolute; z-index: 1; top: 0; right: 0; border: 0;"
      src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67"
@@ -28,8 +28,25 @@
     </header>
 
     <article class="app-content">
-      <div class="players app-players"></div>
-      <div class="field app-field"></div>
+      <form class="app-welcome app-screen --active">
+        <div class="sizeSelector">
+          <input type="radio" name="size" value="2" id="size-2" checked>
+          <label for="size-2" class="sizeSelector-item">2 × 2</label>
+          <input type="radio" name="size" value="4" id="size-4">
+          <label for="size-4" class="sizeSelector-item">4 × 4</label>
+          <input type="radio" name="size" value="6" id="size-6">
+          <label for="size-6" class="sizeSelector-item">6 × 6</label>
+          <input type="radio" name="size" value="8" id="size-8">
+          <label for="size-8" class="sizeSelector-item">8 × 8</label>
+        </div>
+
+        <button class="app-button">Play!</button>
+      </form>
+
+      <div class="app-game app-screen">
+        <div class="players app-players"></div>
+        <div class="field app-field"></div>
+      </div>
     </article>
 
     <footer class="app-footer">
